@@ -75,12 +75,12 @@ login = async(req:Request,res:Response,next:NextFunction) : Promise<void> =>{
     const loginData = {email:email,password:password}
     const {user,refreshToken,accessToken} = await this.userService.loginUser(loginData)
     res.cookie("accessToken",accessToken,{
-      sameSite:"strict",
+      sameSite:"none",
       httpOnly:false,
       domain:"https://mrfit.life"
     });
     res.cookie("refreshToken",refreshToken,{
-      sameSite:"strict",
+      sameSite:"none",
       httpOnly:true,
       domain:"https://mrfit.life"
     });
@@ -96,11 +96,11 @@ googleLogin = async (req:Request,res:Response,next:NextFunction):Promise<void>=>
       const { email, displayName } = req.body
       const {user, accessToken, refreshToken} =  await this.userService.googleUser(email,displayName)
       res.cookie("accessToken",accessToken,{
-        sameSite:"none",
+        sameSite:"strict",
         httpOnly:false
       });
       res.cookie("refreshToken",refreshToken,{
-        sameSite:"none",
+        sameSite:"strict",
         httpOnly:true
       });
       res.status(HttpStatus.OK).send(user)
