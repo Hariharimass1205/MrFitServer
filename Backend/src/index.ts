@@ -33,10 +33,9 @@ app.use(morgan(myFormat));
 
 // Initialize HTTP Server and Socket.IO
 const httpServer = createServer(app);
-
 export const io = new ServerSocket(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://mrfit.life",
+    origin: process.env.CLIENT_URL || "https://mrfit.life",
     methods: ["GET", "POST"],
     credentials: true,
   },

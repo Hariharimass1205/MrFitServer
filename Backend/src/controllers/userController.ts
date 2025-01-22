@@ -96,11 +96,11 @@ googleLogin = async (req:Request,res:Response,next:NextFunction):Promise<void>=>
       const { email, displayName } = req.body
       const {user, accessToken, refreshToken} =  await this.userService.googleUser(email,displayName)
       res.cookie("accessToken",accessToken,{
-        sameSite:"strict",
+        sameSite:"none",
         httpOnly:false
       });
       res.cookie("refreshToken",refreshToken,{
-        sameSite:"strict",
+        sameSite:"none",
         httpOnly:true
       });
       res.status(HttpStatus.OK).send(user)
@@ -112,7 +112,7 @@ googleLogin = async (req:Request,res:Response,next:NextFunction):Promise<void>=>
 logout = async (req:Request,res:Response,next:NextFunction): Promise<void> =>{
   try {
     res.clearCookie("refreshToken") 
-    res.clearCookie('accessToken')
+    res.clearCookie("accessToken")
     res.status(HttpStatus.OK).json({success:true})
   } catch (error) {
     console.error("Error at logout user");
