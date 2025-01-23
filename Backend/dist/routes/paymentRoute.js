@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const paymentController_1 = require("../controllers/paymentController");
+const paymentRepository_1 = require("../repository/paymentRepository");
+const paymentService_1 = require("../services/paymentService");
+const paymentRouter = (0, express_1.Router)();
+const repository = new paymentRepository_1.PaymentRepository();
+const service = new paymentService_1.PaymentService(repository);
+const controller = new paymentController_1.PaymentController(service);
+paymentRouter.post("/payment", controller.payment);
+paymentRouter.post("/response/saveData", controller.saveData);
+exports.default = paymentRouter;

@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const chatRepository_1 = require("../repository/chatRepository");
+const chatService_1 = require("../services/chatService");
+const chatController_1 = require("../controllers/chatController");
+const jwtVerification_1 = __importDefault(require("../middlesware/jwtVerification"));
+const isBlockHandler_1 = require("../middlesware/isBlockHandler");
+const chatRouter = (0, express_1.Router)();
+const repository = new chatRepository_1.chatRepository();
+const service = new chatService_1.chatService(repository);
+const controller = new chatController_1.chatController(service);
+chatRouter.post("/saveMsg", jwtVerification_1.default, isBlockHandler_1.IisBlockHandle, controller.saveMessage);
+chatRouter.post("/saveMsgCoach", jwtVerification_1.default, isBlockHandler_1.IisBlockHandle, controller.saveMessageCoach);
+chatRouter.get("/getMsg", jwtVerification_1.default, isBlockHandler_1.IisBlockHandle, controller.getMessages);
+chatRouter.get("/getRoomId", controller.getRoomId);
+exports.default = chatRouter;

@@ -1,0 +1,26 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const jwtVerification_1 = __importDefault(require("../middlesware/jwtVerification"));
+const coachRepository_1 = require("../repository/coachRepository");
+const coachService_1 = require("../services/coachService");
+const coachController_1 = require("../controllers/coachController");
+const multerConfig_1 = require("../middlesware/multerConfig");
+const isBlockHandler_1 = require("../middlesware/isBlockHandler");
+const coachRouter = (0, express_1.Router)();
+const repository = new coachRepository_1.CoachRepository();
+const service = new coachService_1.CoachService(repository);
+const controller = new coachController_1.CoachController(service);
+coachRouter.post("/saveQuizScore", controller.saveScore);
+coachRouter.post("/registerCoach", jwtVerification_1.default, controller.registerCoachController);
+coachRouter.post("/fetchCoachdata", jwtVerification_1.default, isBlockHandler_1.IisBlockHandle, controller.fetchCoachDataController);
+coachRouter.patch("/updateProfilePic", jwtVerification_1.default, isBlockHandler_1.IisBlockHandle, multerConfig_1.uploadMiddleware, controller.updateCoachProfilePic);
+coachRouter.patch("/updatPackage", jwtVerification_1.default, isBlockHandler_1.IisBlockHandle, controller.updateCoachPackage);
+coachRouter.patch("/updatProfile", jwtVerification_1.default, isBlockHandler_1.IisBlockHandle, controller.updateCoachProfile);
+coachRouter.patch("/saveCoachAchievement", jwtVerification_1.default, controller.updateCoachAchievement);
+coachRouter.put("/updateDiet", jwtVerification_1.default, isBlockHandler_1.IisBlockHandle, controller.updateUserDiet);
+coachRouter.post('/updateAvailability', jwtVerification_1.default, isBlockHandler_1.IisBlockHandle, controller.updateAvailability);
+exports.default = coachRouter;

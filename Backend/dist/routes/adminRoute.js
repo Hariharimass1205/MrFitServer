@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const adminRepository_1 = require("../repository/adminRepository");
+const adminController_1 = require("../controllers/adminController");
+const adminService_1 = require("../services/adminService");
+const adminRouter = (0, express_1.Router)();
+const repository = new adminRepository_1.adminReository();
+const service = new adminService_1.adminService(repository);
+const controller = new adminController_1.adminController(service);
+adminRouter.post("/adminlogin", controller.adminLogin);
+adminRouter.post("/blockUser", controller.blockUser);
+adminRouter.post("/unblockUser", controller.unblockUser);
+adminRouter.post("/fetchUserList", controller.fetchDataList);
+adminRouter.post("/changeStatus", controller.changeCoachStatus);
+exports.default = adminRouter;
