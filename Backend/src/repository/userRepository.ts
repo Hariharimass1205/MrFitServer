@@ -22,6 +22,11 @@ export class UserRepository implements IUserRepository{
         console.log("Running cron job to handle expired enrollments.");
         await this.handleExpiredEnrollments();
       });
+
+      cron.schedule("*/1 * * * *", async () => {
+        console.log("Testing --------------------------------------cron job...");
+        await this.resetDietGoals();
+      });
     }
 
 
