@@ -84,9 +84,9 @@ login = async(req:Request,res:Response,next:NextFunction) : Promise<void> =>{
       sameSite:"none",
       httpOnly:true,
       secure: true, 
-      // domain:"https://mrfit.life"
+     // domain:"https://mrfit.life"
     });
-    res.status(HttpStatus.OK).json(user)
+    res.status(HttpStatus.OK).json({user,authToken:{refreshToken,accessToken}})
   } catch (error) {
     console.error("Error at login user");
     next(error);
@@ -113,8 +113,8 @@ googleLogin = async (req:Request,res:Response,next:NextFunction):Promise<void>=>
 
 logout = async (req:Request,res:Response,next:NextFunction): Promise<void> =>{
   try {
-    res.clearCookie("refreshToken") 
-    res.clearCookie("accessToken")
+    res.clearCookie("refreshtoken") 
+    res.clearCookie('accesstoken')
     res.status(HttpStatus.OK).json({success:true})
   } catch (error) {
     console.error("Error at logout user");

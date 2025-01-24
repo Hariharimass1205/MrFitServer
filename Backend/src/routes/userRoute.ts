@@ -20,7 +20,7 @@ userRouter.post("/signup", controller.register);
 userRouter.post("/sentOTP",controller.otpVerify)
 
 
-userRouter.post("/logout",authMiddleware,controller.logout)
+userRouter.post("/logout",controller.logout)
 userRouter.post('/forgotPassword1',controller.forgotPassword)
 userRouter.post('/ForgotOTPVerify',controller.forgotPasswordOTPVerify)
 userRouter.post('/saveNewPassword',controller.saveChangePassword)

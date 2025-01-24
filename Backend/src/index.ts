@@ -23,9 +23,10 @@ const myFormat =
   ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
   
 app.use(cors({
-  origin:"https://mrfit.life",
+  origin: process.env.CLIENT_URL || "https://mrfit.life",
   credentials: true,
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -33,9 +34,10 @@ app.use(morgan(myFormat));
 
 // Initialize HTTP Server and Socket.IO
 const httpServer = createServer(app);
+
 export const io = new ServerSocket(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL || "https://mrfit.life",
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: true,
   },
