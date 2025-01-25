@@ -27,11 +27,20 @@ const myFormat =
     'https://mrfit.life',
     'https://www.mrfit.life'
   ];
+  app.use(cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (e.g., server-to-server or Postman)
+      if (!origin) return callback(null, true);
   
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true,
-}));
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true); // Origin allowed
+      } else {
+        callback(new Error('Not allowed by CORS')); // Origin not allowed
+      }
+    },
+    credentials: true, // Allow cookies and other credentials
+  }));
+  
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
