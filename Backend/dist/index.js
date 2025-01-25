@@ -25,7 +25,7 @@ const app = (0, express_1.default)();
 (0, db_connect_1.connectToMongoDB)();
 const myFormat = ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
 app.use((0, cors_1.default)({
-    origin: "https://mrfit.life",
+    origin: process.env.CLIENT_URL || "https://mrfit.life",
     credentials: true,
 }));
 app.use(express_1.default.json());
@@ -36,7 +36,7 @@ app.use((0, morgan_1.default)(myFormat));
 const httpServer = (0, http_1.createServer)(app);
 exports.io = new socket_io_1.Server(httpServer, {
     cors: {
-        origin: process.env.CLIENT_URL || "https://mrfit.life",
+        origin: process.env.CLIENT_URL || "http://localhost:3000",
         methods: ["GET", "POST"],
         credentials: true,
     },

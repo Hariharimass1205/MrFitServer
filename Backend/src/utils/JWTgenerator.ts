@@ -9,7 +9,6 @@ export function generateAccessToken (id:string,role:string){
         throw new Error(error.message);
     }
 }
-
 export function generateRefreshToken (id:string,role:string){
     try {
     const payload = {id,role};

@@ -23,7 +23,7 @@ adminLogin = async (req:Request,res:Response,next:NextFunction)=>{
            result.refreshToken,
           {httpOnly:true}
         );
-        res.json({ admin:result.admin });
+        res.json({admin:result.admin,auth:{accessToken:result.accessToken,refreshToken:result.refreshToken}});
       } else {
         res.status(HttpStatus.UNAUTHORIZED).json({ message:"Login failed" });
       }

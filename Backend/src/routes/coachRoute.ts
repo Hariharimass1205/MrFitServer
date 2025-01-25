@@ -23,3 +23,4 @@ coachRouter.put("/updateDiet",authMiddleware,IisBlockHandle,controller.updateUse
 coachRouter.post('/updateAvailability',authMiddleware,IisBlockHandle,controller.updateAvailability)
 
 export default coachRouter
+

@@ -18,7 +18,7 @@ userRouter.post("/login", controller.login);
 userRouter.post("/google-login", controller.googleLogin);
 userRouter.post("/signup", controller.register);
 userRouter.post("/sentOTP", controller.otpVerify);
-userRouter.post("/logout", jwtVerification_1.default, controller.logout);
+userRouter.post("/logout", controller.logout);
 userRouter.post('/forgotPassword1', controller.forgotPassword);
 userRouter.post('/ForgotOTPVerify', controller.forgotPasswordOTPVerify);
 userRouter.post('/saveNewPassword', controller.saveChangePassword);

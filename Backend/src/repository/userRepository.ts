@@ -16,16 +16,9 @@ export class UserRepository implements IUserRepository{
         console.log("Running cron job to reset diet goals daily.");
         await this.resetDietGoals();
       });
-  
-
       cron.schedule("0 0 * * *", async () => {
         console.log("Running cron job to handle expired enrollments.");
         await this.handleExpiredEnrollments();
-      });
-
-      cron.schedule("*/1 * * * *", async () => {
-        console.log("Testing --------------------------------------cron job...");
-        await this.resetDietGoals();
       });
     }
 
@@ -287,7 +280,11 @@ addDietGoalRepo= async (userId:Types.ObjectId,data: {
 private async handleExpiredEnrollments() {
   try {
      const  text = `Your package got expired , Go grab ur best slot with your best coach `
-    const today = new Date().toISOString().split('T')[0];
+     const today = new Date().toLocaleDateString("en-US", {
+      month: "numeric",
+      day: "numeric",
+      year: "numeric",
+    });
     const expiredUsers = await userModel.find({enrolledDurationExpire: today})
     if(expiredUsers.length){
       for(let i=0;i<expiredUsers.length;i++){
@@ -301,16 +298,8 @@ private async handleExpiredEnrollments() {
           'Diet.Meal1': null,
           'Diet.Meal2': null,
           'Diet.Meal3': null,
-          'Diet.Goal.Water': null,
-          'Diet.Goal.Calories': null,
-          'Diet.Goal.Steps': null,
-          'Diet.Goal.Protein': null,
-          'Diet.Goal.Carbohydrates': null,
-          'Diet.Goal.Fats': null,
-          'Diet.Goal.Fiber': null,
-          'Diet.Goal.SleepTime': null,
           enrolledPackage: 0,
-          enrolledDurationExpire: "",
+          enrolledDurationExpire: "Expired",
           enrolledDuration: "",
           enrolledDate: "",
           coachId: null,

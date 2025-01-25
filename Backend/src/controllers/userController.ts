@@ -105,7 +105,7 @@ googleLogin = async (req:Request,res:Response,next:NextFunction):Promise<void>=>
         sameSite:"strict",
         httpOnly:true
       });
-      res.status(HttpStatus.OK).send(user)
+      res.status(HttpStatus.OK).send({user,authToken:{refreshToken,accessToken}})
   }catch (error){
       next(error)
   }

@@ -4,7 +4,7 @@ import userModel from "../model/userModel";
 
 export async function  IisBlockHandle(req:CustomRequest,res:Response,next:NextFunction):Promise<any>{
     try {
-        const user_id =  req?.user
+        const user_id =  req?.user  
         if(!user_id){
          res.status(401).json({ message: "Unauthorized: No user ID provided." });
          return

@@ -90,7 +90,7 @@ class UserController {
                     secure: true,
                     // domain:"https://mrfit.life"
                 });
-                res.status(httpStatusCode_1.HttpStatus.OK).json(user);
+                res.status(httpStatusCode_1.HttpStatus.OK).json({ user, authToken: { refreshToken, accessToken } });
             }
             catch (error) {
                 console.error("Error at login user");
@@ -117,8 +117,8 @@ class UserController {
         });
         this.logout = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
-                res.clearCookie("refreshToken");
-                res.clearCookie("accessToken");
+                res.clearCookie("refreshtoken");
+                res.clearCookie('accesstoken');
                 res.status(httpStatusCode_1.HttpStatus.OK).json({ success: true });
             }
             catch (error) {
