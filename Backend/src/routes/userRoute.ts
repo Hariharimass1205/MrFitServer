@@ -5,7 +5,6 @@ import { userService } from "../services/userService";
 import { UserRepository } from "../repository/userRepository";
 import userModel from "../model/userModel";
 import { IisBlockHandle } from "../middlesware/isBlockHandler";
-import authMiddlewareGoogle from "../middlesware/authmidGoogleLogin";
 
 
 const userRouter = Router();
@@ -28,7 +27,7 @@ userRouter.post('/saveNewPassword',controller.saveChangePassword)
 userRouter.post('/resendOTP',controller.HandleResendOTP)
 
 
-userRouter.post("/fetchdata",authMiddlewareGoogle,IisBlockHandle,controller.fetchUserData)
+userRouter.post("/fetchdata",authMiddleware,IisBlockHandle,controller.fetchUserData)
 userRouter.get('/fetchCoachdata',authMiddleware,IisBlockHandle,controller.fetchCoachlist) 
 userRouter.get('/fetchUserDetails',authMiddleware,IisBlockHandle,controller.fetchUserDetails) 
 userRouter.get('/fetchCoachDetails',authMiddleware,IisBlockHandle,controller.fetchCoachDetails) 
